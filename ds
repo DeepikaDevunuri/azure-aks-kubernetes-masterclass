@@ -1,0 +1,20 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: '<MCAPS-Support-REQ-107334-2024-v-pedsandeep>'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      az group create --name Default-ActivityLogAlerts --location eastus
+      az vm create \
+        --resource-group myResourceGroup \
+        --name myVM \
+        --image UbuntuLTS \
+        --admin-username azureuser \
+        --generate-ssh-keys
